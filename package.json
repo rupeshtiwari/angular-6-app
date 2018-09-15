@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
+    "start": "run-p db:watch start:web",
+    "start:web": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server": "json-server --watch db.json"
+    "db:watch": "json-server --watch db.json",
+    "build:prd": "ng build --prod",
+    "deploy:gh": "gh-pages -d dist",
+    "publish": "run-s build:prd deploy:gh"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +41,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
+    "gh-pages": "^1.2.0",
     "jasmine-core": "~2.99.1",
     "jasmine-marbles": "^0.4.0",
     "jasmine-spec-reporter": "~4.2.1",
