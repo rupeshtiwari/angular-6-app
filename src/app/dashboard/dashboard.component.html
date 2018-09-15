@@ -1,5 +1,5 @@
 <div class="container">
-  <form name="form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
+  <form name="form" (ngSubmit)="search()" #f="ngForm" novalidate>
     <div class="row">
       <div class="col-xs-6 col-md-4">
         <div class="input-group">
@@ -8,9 +8,6 @@
             <button class="btn btn-primary" type="submit">
               <span class="glyphicon glyphicon-search"></span>
             </button>
-          </div>
-          <div *ngIf="f.submitted && f.controls.txtSearch.invalid" class="invalid-feedback">
-            <div *ngIf="f.controls.errors.required">Search Term is required</div>
           </div>
         </div>
       </div>
@@ -23,6 +20,7 @@
         <label>Name :</label> {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}
         <br>
         <label>Email Id:</label> {{employee.email}}
+        <br>
         <label>Employee Id:</label> {{employee.id}}
       </p>
       <a href="#" class="btn btn-primary">Edit</a>

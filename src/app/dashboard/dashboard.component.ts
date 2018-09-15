@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
     this.$employees = this.employeeService.getAllEmployee();
   }
   search() {
-    this.$employees = this.employeeService.getAllEmployeeById(this.searchTerm);
+    this.$employees = this.searchTerm
+      ? this.employeeService.getAllEmployeeById(this.searchTerm)
+      : this.employeeService.getAllEmployee();
   }
 }
