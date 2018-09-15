@@ -1,0 +1,17 @@
+<!-- <div>
+<pre>{{employee|json}}</pre>
+</div> -->
+
+
+<div class="card" *ngFor="let employee of $employees|async">
+  <img class="card-img-top" src="{{employee.picture.large}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}</h5>
+    <p class="card-text">
+
+      {{employee.name.first}} is {{employee.gender}} with email id {{employee.email}}.
+    </p>
+    <a href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>
