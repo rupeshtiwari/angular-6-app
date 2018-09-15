@@ -2,9 +2,8 @@
   "name": "angular-app",
   "version": "0.0.0",
   "scripts": {
-    "start":"run-p server start:web",
     "ng": "ng",
-    "start:web": "ng serve -o",
+    "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

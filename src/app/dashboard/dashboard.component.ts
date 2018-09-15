@@ -9,9 +9,11 @@ import { EmployeeService } from '../services/employee.service';
 export class DashboardComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
   $employees;
+  searchTerm: string;
   ngOnInit() {
-    this.$employees =
-    this.employeeService
-    .getAllEmployee();
+    this.$employees = this.employeeService.getAllEmployee();
+  }
+  search() {
+    this.$employees = this.employeeService.getAllEmployeeById(this.searchTerm);
   }
 }

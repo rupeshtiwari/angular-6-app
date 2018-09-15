@@ -1,17 +1,32 @@
-<!-- <div>
-<pre>{{employee|json}}</pre>
-</div> -->
-
-
-<div class="card" *ngFor="let employee of $employees|async">
-  <img class="card-img-top" src="{{employee.picture.large}}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">
-      {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}</h5>
-    <p class="card-text">
-
-      {{employee.name.first}} is {{employee.gender}} with email id {{employee.email}}.
-    </p>
-    <a href="#" class="btn btn-primary">Edit</a>
+<div class="container">
+  <form name="form" (ngSubmit)="f.form.valid && search()" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xs-6 col-md-4">
+        <div class="input-group">
+          <input [(ngModel)]="searchTerm" type="text" name="txtSearch" class="form-control" placeholder="Search" id="txtSearch" />
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+          <div *ngIf="f.submitted && f.controls.txtSearch.invalid" class="invalid-feedback">
+            <div *ngIf="f.controls.errors.required">Search Term is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="card" *ngFor="let employee of $employees|async">
+    <img class="card-img-top" src="{{employee.picture.large}}" alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text">
+        <label>Name :</label> {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}
+        <br>
+        <label>Email Id:</label> {{employee.email}}
+        <label>Employee Id:</label> {{employee.id}}
+      </p>
+      <a href="#" class="btn btn-primary">Edit</a>
+    </div>
   </div>
+
 </div>
