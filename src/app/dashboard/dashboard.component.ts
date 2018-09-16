@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeApi } from '../api/employee.api';
+import { Subject } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,15 +9,20 @@ import { EmployeeApi } from '../api/employee.api';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private employeeService: EmployeeApi) {}
-  $employees;
+  constructor(private employeeApi: EmployeeApi) {}
+  $click = new Subject();
+  $employees = [];
   searchTerm: string;
+
   ngOnInit() {
-    this.$employees = this.employeeService.getAllEmployee();
+    this.employeeApi.getAllEmployee().subscribe(e => {
+      this.$employees = e;
+    });
   }
+
   search() {
-    this.$employees = this.searchTerm
-      ? this.employeeService.getAllEmployeeById(this.searchTerm)
-      : this.employeeService.getAllEmployee();
+    // this.$employees = this.searchTerm
+    //   ? this.employeeApi.getAllEmployeeById(this.searchTerm)
+    //   : this.employeeApi.getAllEmployee();
   }
 }

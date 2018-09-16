@@ -11,7 +11,6 @@ export class DashboardService {
     private employeeApi: EmployeeApi,
     private addressApi: AddressApi
   ) {}
-  getDashboardItem() {
-    this.employeeApi
-  }
+
+  getDashboardItem() {}
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <form name="form" (ngSubmit)="search()" #f="ngForm" novalidate>
+  <form name="form" (ngSubmit)="$click.next()" #f="ngForm" novalidate>
     <div class="row">
       <div class="col-xs-6 col-md-4">
         <div class="input-group">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </form>
-  <div class="card" *ngFor="let employee of $employees|async">
+  <div class="card" *ngFor="let employee of $employees">
     <img class="card-img-top" src="{{employee.picture.large}}" alt="Card image cap">
     <div class="card-body">
       <p class="card-text">
