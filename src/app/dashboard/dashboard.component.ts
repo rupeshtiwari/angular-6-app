@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../services/employee.service';
+import { EmployeeApi } from '../api/employee.api';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +7,7 @@ import { EmployeeService } from '../services/employee.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeApi) {}
   $employees;
   searchTerm: string;
   ngOnInit() {

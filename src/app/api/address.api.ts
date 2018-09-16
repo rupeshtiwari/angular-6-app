@@ -1,10 +1,10 @@
-import { Injectable } from '../../../node_modules/@angular/core';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
-import { Observable } from '../../../node_modules/rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 
 @Injectable({ providedIn: 'root' })
-export class AddressService {
+export class AddressApi {
   url = 'http://localhost:3000/locations';
 
   constructor(private $http: HttpClient) {}
