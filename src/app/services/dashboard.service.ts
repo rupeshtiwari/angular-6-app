@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Employee } from '../models/employee';
+import { merge, map } from 'rxjs/operators';
+
 import { EmployeeApi } from '../api/employee.api';
 import { AddressApi } from '../api/address.api';
 
@@ -12,5 +11,15 @@ export class DashboardService {
     private addressApi: AddressApi
   ) {}
 
-  getDashboardItem() {}
+  searchEmployeeById(id) {
+    return this.employeeApi.getEmployeeById(id).pipe(
+      merge(this.addressApi.getAddressById(id)),
+      map(([info, addressInfo]) => {
+        return {
+          ...info,
+          ...addressInfo
+        };
+      })
+    );
+  }
 }

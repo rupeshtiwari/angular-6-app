@@ -12,7 +12,7 @@ export class EmployeeApi {
   getAllEmployee(): Observable<any[]> {
     return this.$http.get(this.url) as Observable<any[]>;
   }
-  getAllEmployeeById(id: string): Observable<any[]> {
+  getEmployeeById(id: string): Observable<any[]> {
     return this.$http.get(`${this.url}?id=${id}`) as Observable<any[]>;
   }
 }

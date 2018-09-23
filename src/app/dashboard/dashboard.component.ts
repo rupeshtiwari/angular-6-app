@@ -18,9 +18,12 @@ export class DashboardComponent implements OnInit {
     this.employeeApi.getAllEmployee().subscribe(e => {
       this.$employees = e;
     });
+
+    this.$click.subscribe(this.search.bind(this));
   }
 
-  search() {
+  search(event) {
+    
     // this.$employees = this.searchTerm
     //   ? this.employeeApi.getAllEmployeeById(this.searchTerm)
     //   : this.employeeApi.getAllEmployee();
