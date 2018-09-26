@@ -20,8 +20,8 @@
         <label>Name :</label> {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}
         <br>
         <label>Email Id:</label> {{employee.email}}
-        <br>
-        <label>Employee Id:</label> {{employee.id}}
+        <br><label>Employee Id:</label>
+        <a [routerLink]="['/user',employee.id]"> {{employee.id}}</a>
       </p>
       <a href="#" class="btn btn-primary">Edit</a>
     </div>
