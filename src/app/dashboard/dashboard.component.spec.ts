@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import { EmployeeApi } from '../api/employee.api';
+import { UserApi } from '../api/user.api';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { cold, hot, getTestScheduler } from 'jasmine-marbles';
@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 xdescribe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let employeeApiSpy: jasmine.SpyObj<EmployeeApi>;
+  let employeeApiSpy: jasmine.SpyObj<UserApi>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ xdescribe('DashboardComponent', () => {
       imports: [FormsModule, HttpClientModule],
       providers: [
         {
-          provide: EmployeeApi,
+          provide: UserApi,
           useValue: jasmine.createSpyObj('employeeApi', ['getAllEmployee'])
         }
       ]
@@ -28,7 +28,7 @@ xdescribe('DashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    employeeApiSpy = TestBed.get(EmployeeApi);
+    employeeApiSpy = TestBed.get(UserApi);
   });
 
   it('should create', () => {
@@ -66,11 +66,12 @@ xdescribe('DashboardComponent', () => {
       }
     ];
     const employees = cold('---a|', { a: expected });
-    employeeApiSpy.getAllEmployee.and.returnValue(employees);
-    fixture.detectChanges(); // ngOnInit()
-    expect(component.$employees).toEqual([], 'no employees');
+    employeeApiSpy.getAllUsers.and.returnValue(employees);
+    fixture.detectChanges();
+    component.ngOnInit();
+    expect(component.users$).toEqual([], 'no employees');
     getTestScheduler().flush(); // flush the observables
     fixture.detectChanges(); // update view
-    expect(component.$employees).toEqual(expected, 'employees');
+    expect(component.users$).toEqual(expected, 'employees');
   });
 });

@@ -13,18 +13,16 @@
       </div>
     </div>
   </form>
-  <div class="card" *ngFor="let employee of $employees">
-    <img class="card-img-top" src="{{employee.picture}}" alt="Card image cap">
+  <div class="card" *ngFor="let user of users$">
+    <img class="card-img-top" src="{{user.picture}}" alt="Card image cap">
     <div class="card-body">
       <p class="card-text">
-        <label>Name :</label> {{employee.name.title}} {{employee.name.first}} {{employee.name.last}}
-        <br>
-        <label>Email Id:</label> {{employee.email}}
-        <br><label>Employee Id:</label>
-        <a [routerLink]="['/user',employee.id]"> {{employee.id}}</a>
+        <label>Name :<a [routerLink]="['/user',user.id]" routerLinkActive="router-link-active"> {{user.title}}
+            {{user.first}} {{user.last}}</a>
+        </label>
       </p>
-      <a href="#" class="btn btn-primary">Edit</a>
     </div>
+
   </div>
 
 </div>

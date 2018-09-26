@@ -71,12 +71,14 @@
       "postcode": 21535
     }
   ],
-  "employees": [
+  "users": [
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "ruben", "last": "martinez" },
+      "title": "mr",
+      "first": "ruben",
+      "last": "martinez",
       "email": "ruben.martinez@example.com",
-      "dob": { "date": "1985-05-15T14:49:33Z", "age": 33 },
+      "dob": "1985-05-15T14:49:33Z",
       "phone": "904-222-343",
       "cell": "677-757-448",
       "id": 1,
@@ -84,7 +86,9 @@
     },
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "herkus", "last": "styve" },
+      "title": "mr",
+      "first": "herkus",
+      "last": "styve",
       "email": "herkus.styve@example.com",
       "dob": "1958-10-12T20:17:11Z",
       "phone": "63835413",
@@ -94,7 +98,9 @@
     },
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "cristian", "last": "leon" },
+      "title": "mr",
+      "first": "cristian",
+      "last": "leon",
       "email": "cristian.leon@example.com",
       "dob": "1950-09-11T06:20:58Z",
       "phone": "920-471-059",
@@ -104,7 +110,9 @@
     },
     {
       "gender": "female",
-      "name": { "title": "miss", "first": "afşar", "last": "süleymanoğlu" },
+      "title": "miss",
+      "first": "afşar",
+      "last": "süleymanoğlu",
       "email": "afşar.süleymanoğlu@example.com",
       "dob": "1947-08-09T10:42:06Z",
       "phone": "(400)-085-0403",
@@ -114,7 +122,9 @@
     },
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "thomas", "last": "lopez" },
+      "title": "mr",
+      "first": "thomas",
+      "last": "lopez",
       "email": "thomas.lopez@example.com",
       "dob": "1985-06-22T21:57:55Z",
       "phone": "07-7004-9778",
@@ -124,7 +134,9 @@
     },
     {
       "gender": "female",
-      "name": { "title": "ms", "first": "josefa", "last": "hoppe" },
+      "title": "ms",
+      "first": "josefa",
+      "last": "hoppe",
       "email": "josefa.hoppe@example.com",
       "dob": "1990-11-09T19:15:18Z",
       "phone": "0749-1511645",
@@ -134,7 +146,9 @@
     },
     {
       "gender": "female",
-      "name": { "title": "ms", "first": "hilla", "last": "seppala" },
+      "title": "ms",
+      "first": "hilla",
+      "last": "seppala",
       "email": "hilla.seppala@example.com",
       "dob": "1996-12-24T00:48:12Z",
       "phone": "08-398-232",
@@ -144,7 +158,9 @@
     },
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "maurice", "last": "fox" },
+      "title": "mr",
+      "first": "maurice",
+      "last": "fox",
       "email": "maurice.fox@example.com",
       "dob": "1946-12-21T21:51:57Z",
       "phone": "041-765-6371",
@@ -154,7 +170,9 @@
     },
     {
       "gender": "male",
-      "name": { "title": "mr", "first": "arnold", "last": "frazier" },
+      "title": "mr",
+      "first": "arnold",
+      "last": "frazier",
       "email": "arnold.frazier@example.com",
       "dob": "1965-06-18T13:46:42Z",
       "phone": "041-954-7366",
@@ -164,7 +182,9 @@
     },
     {
       "gender": "female",
-      "name": { "title": "ms", "first": "pilar", "last": "romero" },
+      "title": "ms",
+      "first": "pilar",
+      "last": "romero",
       "email": "pilar.romero@example.com",
       "dob": "1945-06-07T06:29:17Z",
       "phone": "940-485-557",

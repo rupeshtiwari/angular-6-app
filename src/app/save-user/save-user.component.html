@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="card" [formGroup]="userForm$">
+    <img class="card-img-top" src="{{userForm$.controls.picture.value}}" alt="Card image cap">
+    <div class="card-body">
+
+      <div class="form-group">
+        <div class="form-group row">
+          <label>Title :</label> <input class="form-control" type="text" formControlName="title">
+
+        </div>
+        <div class="form-group row">
+          <label>First Name : </label> <input class="form-control" type="text" formControlName="first">
+
+        </div>
+        <div class="form-group row">
+          <label>Last Name : </label> <input class="form-control" type="text" formControlName="last">
+
+        </div>
+        <div class="form-group row">
+          <label>Email Id:</label>
+          <input type="text" class="form-control" formControlName="email">
+
+        </div>
+        <button type="submit" class="btn btn-primary"> Save </button>
+
+        <button type="submit" [routerLink]="['/user',userForm$.controls.id.value]" class="btn btn-secondary"> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

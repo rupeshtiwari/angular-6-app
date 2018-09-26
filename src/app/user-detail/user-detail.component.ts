@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeApi } from '../api/employee.api';
+import { UserApi } from '../api/user.api';
 import { Subject } from 'rxjs';
 import { withLatestFrom, map, mapTo, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -13,12 +13,12 @@ export class UserDetailComponent implements OnInit {
   user$;
   constructor(
     private route: ActivatedRoute,
-    private employeeApi: EmployeeApi
+    private employeeApi: UserApi
   ) {}
 
   ngOnInit(): void {
     this.user$ = this.route.params.pipe(
-      switchMap(params => this.employeeApi.getEmployeeById(params.id))
+      switchMap(params => this.employeeApi.getUserByID(params.id))
     );
   }
 }

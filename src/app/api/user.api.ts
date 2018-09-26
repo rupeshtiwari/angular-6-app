@@ -4,17 +4,21 @@ import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeApi {
+export class UserApi {
   url = 'http://localhost:3000/employees';
 
   constructor(private $http: HttpClient) {}
 
-  getAllEmployee(): Observable<any[]> {
+  getAllUsers(): Observable<any[]> {
     return this.$http.get(this.url) as Observable<any[]>;
   }
 
-  getEmployeeById(id: string): Observable<any> {
+  getUserByID(id: string): Observable<any> {
     console.log('fetch url', `${this.url}/${id}`);
     return this.$http.get(`${this.url}/${id}`);
+  }
+
+  saveUser(user: any) {
+    this.$http.post(this.url, user);
   }
 }
