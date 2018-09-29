@@ -22,7 +22,7 @@
           <input type="text" class="form-control" formControlName="email">
 
         </div>
-        <button type="submit" class="btn btn-primary"> Save </button>
+        <button type="submit" (click)="save()" class="btn btn-primary"> Save </button>
 
         <button type="submit" [routerLink]="['/user',userForm$.controls.id.value]" class="btn btn-secondary"> Cancel
         </button>

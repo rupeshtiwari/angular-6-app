@@ -5,7 +5,7 @@ import { Employee } from '../models/employee';
 
 @Injectable({ providedIn: 'root' })
 export class UserApi {
-  url = 'http://localhost:3000/employees';
+  url = 'http://localhost:3000/users';
 
   constructor(private $http: HttpClient) {}
 
@@ -19,6 +19,6 @@ export class UserApi {
   }
 
   saveUser(user: any) {
-    this.$http.post(this.url, user);
+    return this.$http.post(this.url, user);
   }
 }

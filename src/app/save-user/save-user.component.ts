@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserApi } from '../api/user.api';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +16,8 @@ export class SaveUserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userApi: UserApi,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.createForm();
   }
@@ -38,7 +40,9 @@ export class SaveUserComponent implements OnInit {
   }
 
   save() {
-    const value = this.userForm$.values;
-    this.userApi.saveUser(value);
+    const value = this.userForm$.value;
+    this.userApi.saveUser(value).subscribe(s => {
+      this.router.navigate(['../../dashboard']);
+    });
   }
 }
