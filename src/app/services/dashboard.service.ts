@@ -6,20 +6,5 @@ import { AddressApi } from '../api/address.api';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
-  constructor(
-    private employeeApi: UserApi,
-    private addressApi: AddressApi
-  ) {}
-
-  searchEmployeeById(id) {
-    return this.employeeApi.getUserByID(id).pipe(
-      merge(this.addressApi.getAddressById(id)),
-      map(([info, addressInfo]) => {
-        return {
-          ...info,
-          ...addressInfo
-        };
-      })
-    );
-  }
+  constructor(private employeeApi: UserApi, private addressApi: AddressApi) {}
 }

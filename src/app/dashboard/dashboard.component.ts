@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserApi } from '../api/user.api';
-import { Subject, Observable } from 'rxjs';
-import { withLatestFrom } from 'rxjs/operators';
+import { Subject, Observable, asyncScheduler } from 'rxjs';
+import { withLatestFrom, debounce, debounceTime } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Component({
@@ -15,10 +15,13 @@ export class DashboardComponent implements OnInit {
   users$: Observable<User[]>;
   searchTerm: string;
   searchUser = new Subject<string>();
-
+  debounce = 500;
+  scheduler = asyncScheduler;
   ngOnInit() {
     this.users$ = this.userApi.getAllUsers();
-    this.searchUser.subscribe(this.search.bind(this));
+    this.searchUser
+      .pipe(debounceTime(this.debounce, this.scheduler))
+      .subscribe(this.search.bind(this));
   }
 
   search(name) {
