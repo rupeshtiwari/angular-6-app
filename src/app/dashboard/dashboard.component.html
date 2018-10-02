@@ -16,7 +16,7 @@
   <div class="alert alert-warning">
     <a [routerLink]="['/user',0,'edit']" routerLinkActive="router-link-active"> <b>Click here to add new user</b> </a>
   </div>
-  <ul class="list-group">
+  <ul class="list-group list-group-hover">
     <li class="list-group-item  list-group-item-action" *ngFor="let user of users$">
       <a [routerLink]="['/user',user.id]" routerLinkActive="router-link-active"> {{user.title}}
         {{user.first}} {{user.last}}</a>
