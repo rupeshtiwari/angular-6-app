@@ -1,5 +1,5 @@
 <div class="container">
-  <form name="form" (ngSubmit)="$click.next()" #f="ngForm" novalidate>
+  <form name="form" class="form-group" (ngSubmit)="$click.next()" #f="ngForm" novalidate>
     <div class="row">
       <div class="col-xs-6 col-md-4">
         <div class="input-group">
@@ -13,16 +13,14 @@
       </div>
     </div>
   </form>
-  <div class="card" *ngFor="let user of users$">
-    <img class="card-img-top" src="{{user.picture}}" alt="Card image cap">
-    <div class="card-body">
-      <p class="card-text">
-        <label>Name :<a [routerLink]="['/user',user.id]" routerLinkActive="router-link-active"> {{user.title}}
-            {{user.first}} {{user.last}}</a>
-        </label>
-      </p>
-    </div>
-
+  <div class="alert alert-warning">
+    <a [routerLink]="['/user',0,'edit']" routerLinkActive="router-link-active"> <b>Click here to add new user</b> </a>
   </div>
+  <ul class="list-group">
+    <li class="list-group-item  list-group-item-action" *ngFor="let user of users$">
+      <a [routerLink]="['/user',user.id]" routerLinkActive="router-link-active"> {{user.title}}
+        {{user.first}} {{user.last}}</a>
+    </li>
+  </ul>
 
 </div>

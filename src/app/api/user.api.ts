@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employee } from '../models/employee';
 
 @Injectable({ providedIn: 'root' })
 export class UserApi {
@@ -19,6 +18,11 @@ export class UserApi {
   }
 
   saveUser(user: any) {
-    return this.$http.post(this.url, user);
+    if (user.id) {
+      return this.$http.put(`${this.url}/${user.id}`, user);
+    } else {
+      user.id = new Date().getTime().toString(36);
+      return this.$http.post(`${this.url}`, user);
+    }
   }
 }

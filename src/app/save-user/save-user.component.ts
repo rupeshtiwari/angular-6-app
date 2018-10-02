@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-save-user',
-  templateUrl: './save-user.component.html'
+  templateUrl: './save-user.component.html',
+  styleUrls: ['./save-user.component.css']
 })
 export class SaveUserComponent implements OnInit {
   user$;
@@ -41,8 +43,8 @@ export class SaveUserComponent implements OnInit {
 
   save() {
     const value = this.userForm$.value;
-    this.userApi.saveUser(value).subscribe(s => {
-      this.router.navigate(['../../dashboard']);
+    this.userApi.saveUser(value).subscribe((s: User) => {
+      this.router.navigate(['../../user', s.id]);
     });
   }
 }
