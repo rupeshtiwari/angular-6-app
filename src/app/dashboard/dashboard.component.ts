@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserApi } from '../api/user.api';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,23 +10,18 @@ import { withLatestFrom } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private employeeApi: UserApi) {}
+  constructor(private userApi: UserApi) {}
   $click = new Subject();
-  users$ = [];
+  users$: Observable<User[]>;
   searchTerm: string;
+  searchUser = new Subject<string>();
 
   ngOnInit() {
-    this.employeeApi.getAllUsers().subscribe(e => {
-      this.users$ = e;
-    });
-
-    this.$click.subscribe(this.search.bind(this));
+    this.users$ = this.userApi.getAllUsers();
+    this.searchUser.subscribe(this.search.bind(this));
   }
 
-  search(event) {
-
-    // this.$employees = this.searchTerm
-    //   ? this.employeeApi.getAllEmployeeById(this.searchTerm)
-    //   : this.employeeApi.getAllEmployee();
+  search(name) {
+    this.users$ = this.userApi.searchUser(name);
   }
 }
