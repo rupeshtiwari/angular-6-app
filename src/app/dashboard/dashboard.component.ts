@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   searchUser = new Subject<string>();
   debounce = 500;
   scheduler = asyncScheduler;
+
   ngOnInit() {
     this.users$ = this.userApi.getAllUsers();
     this.searchUser
