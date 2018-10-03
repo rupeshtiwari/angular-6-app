@@ -2,9 +2,9 @@ import { UserApi } from './user.api';
 import { cold } from 'jasmine-marbles';
 import { HttpClient } from '@angular/common/http';
 
-fdescribe('UserApi', () => {
+describe('UserApi', () => {
   let userApi: UserApi;
-  let $http: HttpClient;
+  let $http: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
     $http = jasmine.createSpyObj('$http', ['get', 'put', 'post']);
@@ -25,7 +25,7 @@ fdescribe('UserApi', () => {
       }
     ];
     const expectedUsers = cold('--a|', { a: usersData });
-    ($http.get as jasmine.Spy).and.returnValue(expectedUsers);
+    $http.get.and.returnValue(expectedUsers);
     const result = userApi.getAllUsers();
 
     expect(result).toBeObservable(expectedUsers);

@@ -11,16 +11,16 @@ import { User } from '../models/user';
 })
 export class DashboardComponent implements OnInit {
   constructor(private userApi: UserApi) {}
-  $click = new Subject();
+
   users$: Observable<User[]>;
-  searchTerm: string;
-  searchUser = new Subject<string>();
+
+  searchTerm$ = new Subject<string>();
   debounce = 500;
   scheduler = asyncScheduler;
 
   ngOnInit() {
     this.users$ = this.userApi.getAllUsers();
-    this.searchUser
+    this.searchTerm$
       .pipe(debounceTime(this.debounce, this.scheduler))
       .subscribe(this.search.bind(this));
   }

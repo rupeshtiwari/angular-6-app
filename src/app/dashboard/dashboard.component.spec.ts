@@ -5,9 +5,9 @@ import { UserApi } from '../api/user.api';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { cold, hot, getTestScheduler } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
-xdescribe('DashboardComponent', () => {
+describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let userApiSpy: jasmine.SpyObj<UserApi>;
@@ -15,7 +15,7 @@ xdescribe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
-      imports: [FormsModule, HttpClientModule],
+      imports: [FormsModule, HttpClientModule, RouterTestingModule],
       providers: [
         {
           provide: UserApi,
@@ -35,7 +35,7 @@ xdescribe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get employee', () => {
+  it('should get all users', () => {
     const expectedUsers = [
       {
         title: 'mr',
@@ -45,14 +45,27 @@ xdescribe('DashboardComponent', () => {
         id: 2
       }
     ];
-    const users = cold('---a|', { a: expectedUsers });
-    const emptyUsers = cold('--b|', { b: [] });
-    userApiSpy.getAllUsers.and.returnValue(users);
+    const users$ = cold('--a|', { a: expectedUsers });
+    userApiSpy.getAllUsers.and.returnValue(users$);
     fixture.detectChanges();
-    component.ngOnInit();
-    expect(component.users$).toEqual(emptyUsers, 'no users');
-    getTestScheduler().flush(); // flush the observables
-    fixture.detectChanges(); // update view
-    expect(component.users$).toEqual(users, 'users');
+    expect(component.users$).toEqual(users$, 'no users');
+  });
+
+  it('can search user by name', () => {
+    const expectedUsers = [
+      {
+        title: 'mr',
+        first: 'thomas',
+        last: 'lopez',
+        email: 'thomas.lopez@example.com',
+        id: 2
+      }
+    ];
+    component.debounce = 500;
+    component.scheduler = getTestScheduler();
+    const expectedUsers$ = cold('--a|', { a: expectedUsers });
+    userApiSpy.searchUser.and.returnValue(expectedUsers$);
+    component.searchTerm$.next('red');
+    expect(component.users$).toBeObservable(expectedUsers);
   });
 });
