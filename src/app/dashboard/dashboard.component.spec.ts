@@ -19,7 +19,10 @@ describe('DashboardComponent', () => {
       providers: [
         {
           provide: UserApi,
-          useValue: jasmine.createSpyObj('userApi', ['getAllUsers'])
+          useValue: jasmine.createSpyObj('userApi', [
+            'getAllUsers',
+            'searchUser'
+          ])
         }
       ]
     });
@@ -52,6 +55,7 @@ describe('DashboardComponent', () => {
   });
 
   it('can search user by name', () => {
+    const scheduler = getTestScheduler();
     const expectedUsers = [
       {
         title: 'mr',
@@ -61,11 +65,21 @@ describe('DashboardComponent', () => {
         id: 2
       }
     ];
-    component.debounce = 500;
-    component.scheduler = getTestScheduler();
-    const expectedUsers$ = cold('--a|', { a: expectedUsers });
+    component.debounce = 600;
+    component.scheduler = scheduler;
+
+    fixture.detectChanges();
+
+    const expectedUsers$ = cold('-- 599ms a|', { a: expectedUsers });
     userApiSpy.searchUser.and.returnValue(expectedUsers$);
-    component.searchTerm$.next('red');
-    expect(component.users$).toBeObservable(expectedUsers);
+    component.searchTermObservable$ = cold('--b|', {
+      b: 'red'
+    });
+
+    component.ngOnInit();
+
+    scheduler.flush();
+
+    expect(component.users$).toBeObservable(expectedUsers$);
   });
 });

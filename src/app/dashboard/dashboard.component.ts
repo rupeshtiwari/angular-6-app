@@ -15,12 +15,14 @@ export class DashboardComponent implements OnInit {
   users$: Observable<User[]>;
 
   searchTerm$ = new Subject<string>();
+  searchTermObservable$ = this.searchTerm$.asObservable();
+
   debounce = 500;
   scheduler = asyncScheduler;
 
   ngOnInit() {
     this.users$ = this.userApi.getAllUsers();
-    this.searchTerm$
+    this.searchTermObservable$
       .pipe(debounceTime(this.debounce, this.scheduler))
       .subscribe(this.search.bind(this));
   }
