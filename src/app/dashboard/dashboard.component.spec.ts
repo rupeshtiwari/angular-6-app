@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let userApiSpy: jasmine.SpyObj<UserApi>;
+  let userApi: UserApi;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,19 +19,20 @@ describe('DashboardComponent', () => {
       providers: [
         {
           provide: UserApi,
-          useValue: jasmine.createSpyObj('userApi', [
-            'getAllUsers',
-            'searchUser'
-          ])
+          useValue: {
+            getAllUsers: jest.fn(),
+            searchUser: jest.fn()
+          }
         }
       ]
-    });
+    }).compileComponents();
+    userApi = TestBed.get(UserApi);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    userApiSpy = TestBed.get(UserApi);
+    userApi = TestBed.get(UserApi);
   });
 
   it('should create', () => {
@@ -49,14 +50,14 @@ describe('DashboardComponent', () => {
       }
     ];
     const users$ = cold('--a|', { a: expectedUsers });
-    userApiSpy.getAllUsers.and.returnValue(users$);
+    userApi.getAllUsers = jest.fn(() => users$);
     fixture.detectChanges();
     expect(component.users$).toEqual(users$, 'no users');
   });
 
   it('can search user by name', () => {
     const scheduler = getTestScheduler();
-    const expectedUsers = [
+    const users = [
       {
         title: 'mr',
         first: 'thomas',
@@ -65,21 +66,23 @@ describe('DashboardComponent', () => {
         id: 2
       }
     ];
-    component.debounce = 600;
+    const debounce = 600;
+    const expected$ = cold('-- 599ms a|', { a: users });
+    const searchTerm$ = hot('--s--|', {
+      s: 'red'
+    });
+
+    component.debounce = debounce;
     component.scheduler = scheduler;
 
     fixture.detectChanges();
 
-    const expectedUsers$ = cold('-- 599ms a|', { a: expectedUsers });
-    userApiSpy.searchUser.and.returnValue(expectedUsers$);
-    component.searchTermObservable$ = cold('--b|', {
-      b: 'red'
-    });
-
+    userApi.searchUser = jest.fn(() => expected$);
+    component.searchTerm$ = searchTerm$;
     component.ngOnInit();
 
     scheduler.flush();
 
-    expect(component.users$).toBeObservable(expectedUsers$);
+    expect(component.users$).toBeObservable(expected$);
   });
 });
