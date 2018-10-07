@@ -1,6 +1,5 @@
-import { hot, cold, getTestScheduler } from 'jasmine-marbles';
-import { interval, Observable, from, never, NEVER, of, EMPTY } from 'rxjs';
-import { take, share, map, filter } from 'rxjs/operators';
+import { cold } from 'jasmine-marbles';
+import { NEVER, EMPTY } from 'rxjs';
 
 describe('Marble Syntax', () => {
   it('emits no items but terminates normally', () => {
