@@ -4,9 +4,10 @@ import { take, share, filter } from 'rxjs/operators';
 
 describe('hot', () => {
   it('should create hot observable', () => {
-    const provided1 = getHotObservable();
-    getTestScheduler().flush();
-    expect(provided1).toBeObservable(hot('(abc|)', { a: 1, b: 2, c: 3 }));
+    const given = from([1, 2, 3]).pipe(share());
+    const expected = hot('(abc|)', { a: 1, b: 2, c: 3 });
+
+    expect(given).toBeObservable(expected);
   });
 
   it('should work with asynchronous operators', () => {
