@@ -67,6 +67,7 @@ describe('DashboardComponent', () => {
       }
     ];
     const debounce = 600;
+    const response$ = cold('--a|', { a: users });
     const expected$ = cold('-- 599ms a|', { a: users });
     const searchTerm$ = hot('--s--|', {
       s: 'red'
@@ -77,7 +78,7 @@ describe('DashboardComponent', () => {
 
     fixture.detectChanges();
 
-    userApi.searchUser = jest.fn(() => expected$);
+    userApi.searchUser = jest.fn(() => response$);
     component.searchTerm$ = searchTerm$;
     component.ngOnInit();
 
