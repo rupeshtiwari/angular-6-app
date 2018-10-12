@@ -57,6 +57,8 @@ describe('DashboardComponent', () => {
 
   it('can search user by first name', () => {
     const scheduler = getTestScheduler();
+    component.debounce = 30;
+    component.scheduler = scheduler;
     const users = [
       {
         title: 'mr',
@@ -66,15 +68,11 @@ describe('DashboardComponent', () => {
         id: 2
       }
     ];
-    const debounce = 30;
     const searchTerm$ = hot('--s---|', {
       s: 'red'
     });
     const response$ = cold('----a|', { a: users });
     const expected$ = cold('----------r|', { r: users });
-
-    component.debounce = debounce;
-    component.scheduler = scheduler;
     component.searchTerm$ = searchTerm$;
     userApi.searchUser = jest.fn(() => response$);
 
@@ -85,6 +83,8 @@ describe('DashboardComponent', () => {
 
   it('can search user by first name race condition', () => {
     const scheduler = getTestScheduler();
+    component.debounce = 30;
+    component.scheduler = scheduler;
     const users = [
       {
         title: 'mr',
@@ -94,20 +94,35 @@ describe('DashboardComponent', () => {
         id: 2
       }
     ];
-    const debounce = 30;
-    const searchTerm$ = hot('--s---|', {
-      s: 'red'
-    });
+
     const response$ = cold('----a|', { a: users });
     const expected$ = cold('----------r|', { r: users });
-
-    component.debounce = debounce;
-    component.scheduler = scheduler;
-    component.searchTerm$ = searchTerm$;
+    component.searchTerm$ = hot('--s---|', {
+      s: 'thomas'
+    });
     userApi.searchUser = jest.fn(() => response$);
+
+     
+    const users1 = [
+      {
+        title: 'mr',
+        first: 'John',
+        last: 'Paul',
+        email: 'john.paul@example.com',
+        id: 3
+      }
+    ];
+    component.searchTerm$ = hot('--s---|', {
+      s: 'john'
+    });
+    const response$1 = cold('-a|', { a: users1 });
+    const expected$1 = cold('------r|', { r: users1 });
+
+    userApi.searchUser = jest.fn(() => response$1);
+
 
     component.ngOnInit();
     scheduler.flush();
-    expect(component.users$).toBeObservable(expected$);
+    expect(component.users$).toBeObservable(expected$1);
   });
 });
