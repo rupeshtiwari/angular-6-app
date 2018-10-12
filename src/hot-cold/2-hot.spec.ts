@@ -1,6 +1,6 @@
-import { hot, getTestScheduler } from 'jasmine-marbles';
-import { interval, from } from 'rxjs';
-import { take, share, filter } from 'rxjs/operators';
+import { hot, cold } from 'jasmine-marbles';
+import { from } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 describe('hot', () => {
   it('should create hot observable', () => {
@@ -10,18 +10,17 @@ describe('hot', () => {
     expect(given).toBeObservable(expected);
   });
 
-  it('should work with asynchronous operators', () => {
-    const obs1 = interval(10, getTestScheduler()).pipe(
-      take(4),
-      filter(v => v % 2 === 0)
-    );
+  it('should test subscription', () => {
+    const source = hot('-a-^(bc)-|');
+    const subscription = ' ^-----!';
 
-    const expected = hot('-a-c|', { a: 0, b: 1, c: 2, d: 3 });
+    expect(source).toHaveSubscriptions(subscription);
+  });
 
-    expect(obs1).toBeObservable(expected);
+  it('should test subscription observable', () => {
+    const source = hot('-a-^(bc)-|');
+    const expected = cold('-(bc)-|');
+
+    expect(source).toBeObservable(expected);
   });
 });
-
-function getHotObservable() {
-  return from([1, 2, 3]).pipe(share());
-}

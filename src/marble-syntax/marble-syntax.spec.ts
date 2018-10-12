@@ -5,11 +5,17 @@ describe('Marble Syntax', () => {
   it('emits no items but terminates normally', () => {
     expect(EMPTY).toBeObservable(cold('|'));
   });
+
   it('emits no items and does not terminate', () => {
     expect(NEVER).toBeObservable(cold('-'));
     expect(NEVER).toBeObservable(cold('-----'));
   });
+
   it('emits no items and terminates with an error', () => {
     expect(EMPTY).toBeObservable(cold('|'));
+  });
+
+  it('should trim the spaces', () => {
+    expect(cold('     ---a--b--c--| ')).toBeObservable('---a--b--c--|');
   });
 });

@@ -10,6 +10,18 @@ describe('concat', () => {
     expect(result).toBeObservable(expected);
   });
 
+  it('should identify subscription points', () => {
+    const obs1 = cold('-a---b-|');
+    const obs2 = cold('-c---d-|');
+    const expected = cold('-a---b--c---d-|');
+    const sub1 = '^------!';
+    const sub2 = '-------^------!';
+
+    expect(concat(obs1, obs2)).toBeObservable(expected);
+    expect(obs1).toHaveSubscriptions(sub1);
+    expect(obs2).toHaveSubscriptions(sub2);
+  });
+
   it('should concat hot observables', () => {
     const obs1 = hot('---a--^--b--|');
     const obs2 = hot('------^----c--d|');
