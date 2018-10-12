@@ -67,13 +67,11 @@ describe('DashboardComponent', () => {
       }
     ];
     const debounce = 30;
-
-
-    const searchTerm$ = hot('--s--|', {
+    const searchTerm$ = hot('--s---|', {
       s: 'red'
     });
-    const response$ = cold( '--a|', { a: users });
-    const expected$ = cold( '-----r|', { r: users });
+    const response$ = cold( '----a|', { a: users });
+    const expected$ = cold( '----------r|', { r: users });
 
     component.debounce = debounce;
     component.scheduler = scheduler;
