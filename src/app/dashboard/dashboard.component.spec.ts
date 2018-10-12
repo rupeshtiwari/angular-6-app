@@ -55,7 +55,7 @@ describe('DashboardComponent', () => {
     expect(component.users$).toEqual(users$, 'no users');
   });
 
-  it('can search user by name', () => {
+  it('can search user by first name', () => {
     const scheduler = getTestScheduler();
     const users = [
       {
@@ -66,12 +66,14 @@ describe('DashboardComponent', () => {
         id: 2
       }
     ];
-    const debounce = 600;
-    const response$ = cold('--a|', { a: users });
-    const expected$ = cold('-- 599ms a|', { a: users });
+    const debounce = 30;
+
+
     const searchTerm$ = hot('--s--|', {
       s: 'red'
     });
+    const response$ = cold( '--a|', { a: users });
+    const expected$ = cold( '-----r|', { r: users });
 
     component.debounce = debounce;
     component.scheduler = scheduler;
