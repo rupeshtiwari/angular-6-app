@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="card" *ngIf="user$ | async; let user">
-  
+
     <div class="card-body">
       <div class="form-group">
         <div class="form-group row">
@@ -15,15 +15,15 @@
           <label>user Id:</label> {{user.id}}</div>
 
         <div class="form-group row">
-          <div class="col-md-1">
-            <button type="submit" [routerLink]="['/user', user.id,'edit']" class="btn btn-primary btn-success"> Edit
-            </button>
-          </div>
-          <div class="col-md-1">
-            <button type="submit" [routerLink]="['../../dashboard']" class=" btn btn-secondary btn-warning">
-              Cancel
-            </button>
-          </div>
+
+          <button type="submit" [routerLink]="['/user', user.id,'edit']" class="btn btn-primary btn-success btn-space ">
+            Edit
+          </button>
+
+          <button type="submit" [routerLink]="['../../dashboard']" class=" btn btn-secondary btn-warning">
+            Cancel
+          </button>
+
         </div>
       </div>
     </div>

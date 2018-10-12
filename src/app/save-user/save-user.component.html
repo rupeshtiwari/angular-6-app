@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card" [formGroup]="userForm$">
-     
+
     <div class="card-body">
 
       <div class="form-group">
@@ -22,14 +22,14 @@
 
         </div>
         <div class="form-group row">
-          <div class="col-md-1">
-            <button type="submit" (click)="save()" class="btn btn-primary btn-success"> Save </button>
-          </div>
-          <div class="col-md-1">
+
+            <button type="submit" (click)="save()" class="btn btn-primary btn-success btn-space"> Save </button>
+
+
             <button type="submit" [routerLink]="['/user',userForm$.controls.id.value]" class="btn btn-secondary btn-warning">
               Cancel
             </button>
-          </div>
+
         </div>
       </div>
     </div>
