@@ -1,12 +1,15 @@
 {
   "name": "angular-app",
   "version": "0.0.0",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "ng": "ng",
     "start": "run-p db:watch start:web",
     "start:web": "ng serve -o",
     "build": "ng build",
-    "test": "jest -c src/jest.config.js --watch",
+    "test": "jest -c src/jest.config.js --watch --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "db:watch": "json-server --watch db.json",

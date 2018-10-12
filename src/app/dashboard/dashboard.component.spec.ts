@@ -70,20 +70,44 @@ describe('DashboardComponent', () => {
     const searchTerm$ = hot('--s---|', {
       s: 'red'
     });
-    const response$ = cold( '----a|', { a: users });
-    const expected$ = cold( '----------r|', { r: users });
+    const response$ = cold('----a|', { a: users });
+    const expected$ = cold('----------r|', { r: users });
 
     component.debounce = debounce;
     component.scheduler = scheduler;
-
-    fixture.detectChanges();
-
-    userApi.searchUser = jest.fn(() => response$);
     component.searchTerm$ = searchTerm$;
+    userApi.searchUser = jest.fn(() => response$);
+
     component.ngOnInit();
-
     scheduler.flush();
+    expect(component.users$).toBeObservable(expected$);
+  });
 
+  it('can search user by first name race condition', () => {
+    const scheduler = getTestScheduler();
+    const users = [
+      {
+        title: 'mr',
+        first: 'thomas',
+        last: 'lopez',
+        email: 'thomas.lopez@example.com',
+        id: 2
+      }
+    ];
+    const debounce = 30;
+    const searchTerm$ = hot('--s---|', {
+      s: 'red'
+    });
+    const response$ = cold('----a|', { a: users });
+    const expected$ = cold('----------r|', { r: users });
+
+    component.debounce = debounce;
+    component.scheduler = scheduler;
+    component.searchTerm$ = searchTerm$;
+    userApi.searchUser = jest.fn(() => response$);
+
+    component.ngOnInit();
+    scheduler.flush();
     expect(component.users$).toBeObservable(expected$);
   });
 });
