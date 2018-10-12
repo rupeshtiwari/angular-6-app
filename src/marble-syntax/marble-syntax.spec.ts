@@ -16,6 +16,6 @@ describe('Marble Syntax', () => {
   });
 
   it('should trim the spaces', () => {
-    expect(cold('     ---a--b--c--| ')).toBeObservable('---a--b--c--|');
+    expect(cold('     ---a--b--c--| ')).toBeObservable(cold('---a--b--c--|'));
   });
 });

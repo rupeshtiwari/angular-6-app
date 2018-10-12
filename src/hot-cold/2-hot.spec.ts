@@ -11,8 +11,8 @@ describe('hot', () => {
   });
 
   it('should test subscription', () => {
-    const source = hot('-a-^(bc)-|');
-    const subscription = ' ^-----!';
+    const source = hot('-a---^b---c---|');
+    const subscription = '   ^--------!';
 
     expect(source).toHaveSubscriptions(subscription);
   });

@@ -65,4 +65,17 @@ describe('testscheduler', () => {
 
     expect(result).toBeObservable(expected);
   });
+
+  it('can emit values', () => {
+    const stocks = cold('--a--b--c--d--e--f|', {
+      a: 2,
+      b: 2.5,
+      c: 3,
+      d: 2,
+      e: 4,
+      f: 3
+    });
+
+    stocks.subscribe(s => console.log(s));
+  });
 });
