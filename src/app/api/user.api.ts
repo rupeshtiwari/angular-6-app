@@ -13,7 +13,7 @@ export class UserApi {
     return this.$http.get<User[]>(this.url);
   }
 
-  getUserByID(id: string) {
+  getUserById(id: string) {
     log(`getUserById url: ${this.url}/${id}`);
 
     return this.$http.get(`${this.url}/${id}`);

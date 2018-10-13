@@ -4,10 +4,14 @@ import { HttpClient } from '@angular/common/http';
 
 describe('UserApi', () => {
   let userApi: UserApi;
-  let $http: jasmine.SpyObj<HttpClient>;
+  let $http: HttpClient;
 
   beforeEach(() => {
-    $http = jasmine.createSpyObj('$http', ['get', 'put', 'post']);
+    $http = {
+      get: jest.fn(),
+      put: jest.fn(),
+      post: jest.fn()
+    } as any;
     userApi = new UserApi($http);
   });
 
@@ -25,7 +29,7 @@ describe('UserApi', () => {
       }
     ];
     const expectedUsers = cold('--a|', { a: usersData });
-    $http.get.and.returnValue(expectedUsers);
+    $http.get = jest.fn(() => expectedUsers);
     const result = userApi.getAllUsers();
 
     expect(result).toBeObservable(expectedUsers);

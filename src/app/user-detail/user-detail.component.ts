@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.route.params.pipe(
-      switchMap(params => this.employeeApi.getUserByID(params.id))
+      switchMap(params => this.employeeApi.getUserById(params.id))
     );
   }
 }

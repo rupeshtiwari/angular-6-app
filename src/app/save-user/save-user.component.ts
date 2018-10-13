@@ -26,7 +26,7 @@ export class SaveUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .pipe(switchMap(params => this.userApi.getUserByID(params.id)))
+      .pipe(switchMap(params => this.userApi.getUserById(params.id)))
       .subscribe(s => this.userForm$.patchValue(s));
   }
 
