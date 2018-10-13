@@ -39,90 +39,30 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get all users', () => {
-    const expectedUsers = [
-      {
-        title: 'mr',
-        first: 'thomas',
-        last: 'lopez',
-        email: 'thomas.lopez@example.com',
-        id: 2
-      }
-    ];
-    const users$ = cold('--a|', { a: expectedUsers });
-    userApi.getAllUsers = jest.fn(() => users$);
-    fixture.detectChanges();
-    expect(component.users$).toEqual(users$, 'no users');
-  });
-
   it('can search user by first name', () => {
-    const scheduler = getTestScheduler();
-    component.debounce = 30;
-    component.scheduler = scheduler;
-    const users = [
-      {
-        title: 'mr',
-        first: 'thomas',
-        last: 'lopez',
-        email: 'thomas.lopez@example.com',
-        id: 2
-      }
-    ];
-    const searchTerm$ = hot('--s---|', {
-      s: 'red'
-    });
-    const response$ = cold('----a|', { a: users });
-    const expected$ = cold('----------r|', { r: users });
-    component.searchTerm$ = searchTerm$;
-    userApi.searchUser = jest.fn(() => response$);
+    const expected$ = cold('-----a|', { a: { first: 'Rupesh' } });
+    userApi.searchUser = jest.fn(() => expected$);
 
-    component.ngOnInit();
-    scheduler.flush();
-    expect(component.users$).toBeObservable(expected$);
+    component.search('Rupesh');
+    getTestScheduler().flush();
+    expect(component.users).toEqual({ first: 'Rupesh' });
   });
 
-  it('can search user by first name race condition', () => {
-    const scheduler = getTestScheduler();
-    component.debounce = 30;
-    component.scheduler = scheduler;
-    const users = [
-      {
-        title: 'mr',
-        first: 'thomas',
-        last: 'lopez',
-        email: 'thomas.lopez@example.com',
-        id: 2
-      }
-    ];
+  it('RACE CONDITION: can search user by first name', () => {
+    userApi.searchUser = jest.fn(() =>
+      cold('--------a|', { a: { first: 'Rupesh' } })
+    );
 
-    const response$ = cold('----a|', { a: users });
-    const expected$ = cold('----------r|', { r: users });
-    component.searchTerm$ = hot('--s---|', {
-      s: 'thomas'
-    });
-    userApi.searchUser = jest.fn(() => response$);
+    component.search('Rupesh');
 
-     
-    const users1 = [
-      {
-        title: 'mr',
-        first: 'John',
-        last: 'Paul',
-        email: 'john.paul@example.com',
-        id: 3
-      }
-    ];
-    component.searchTerm$ = hot('--s---|', {
-      s: 'john'
-    });
-    const response$1 = cold('-a|', { a: users1 });
-    const expected$1 = cold('------r|', { r: users1 });
+    userApi.searchUser = jest.fn(() =>
+      cold('--b|', { b: { first: 'Ritesh' } })
+    );
 
-    userApi.searchUser = jest.fn(() => response$1);
+    component.search('Ritesh');
 
+    getTestScheduler().flush();
 
-    component.ngOnInit();
-    scheduler.flush();
-    expect(component.users$).toBeObservable(expected$1);
+    expect(component.users).toEqual({ first: 'Rupesh' });
   });
 });
