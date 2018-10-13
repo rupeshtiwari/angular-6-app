@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserApi } from '../api/user.api';
 import { User } from '../models/user';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +10,20 @@ import { User } from '../models/user';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  users$: User[] = [];
-
-  constructor(private userApi: UserApi) {}
-  users;
+  searchTerm$ = new Subject<string>();
+  constructor(private userApi: UserApi) {
+    this.searchTerm$
+      .pipe(switchMap(first => this.userApi.searchUser(first)))
+      .subscribe(users => (this.users = users));
+  }
+  users = [];
   ngOnInit() {}
 
-  search(name) {
-    this.users = this.userApi
-      .searchUser(name)
-      .subscribe(users => (this.users = users));
+  search(first) {
+    this.userApi.searchUser(first).subscribe(users => (this.users = users));
+  }
+
+  onKeyUp(first) {
+    this.searchTerm$.next(first);
   }
 }
