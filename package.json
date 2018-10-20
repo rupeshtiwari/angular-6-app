@@ -15,7 +15,8 @@
     "db:watch": "json-server --watch db.json",
     "build:prd": "ng build --prod",
     "deploy:gh": "gh-pages -d dist",
-    "publish": "run-s build:prd deploy:gh"
+    "publish": "run-s build:prd deploy:gh",
+    "rnd" :"ts-node src/rnd.ts"
   },
   "private": true,
   "dependencies": {
