@@ -2,7 +2,10 @@ import { cold } from 'jasmine-marbles';
 import { throwError, Observable } from 'rxjs';
 
 describe('error', () => {
-
+  it('test', () => {
+    const s = throwError('error');
+    expect(s).toBeObservable(cold('#'));
+  });
   it('should work with error with values', () => {
     const expected = cold('#', {}, new Error('server error'));
     const result = getData();
