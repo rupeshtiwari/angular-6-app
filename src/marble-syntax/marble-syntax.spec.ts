@@ -14,8 +14,4 @@ describe('Marble Syntax', () => {
   it('emits no items and terminates with an error', () => {
     expect(EMPTY).toBeObservable(cold('|'));
   });
-
-  it('should trim the spaces', () => {
-    expect(cold('     ---a--b--c--| ')).toBeObservable(cold('---a--b--c--|'));
-  });
 });
