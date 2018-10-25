@@ -10,8 +10,4 @@ describe('Marble Syntax', () => {
     expect(NEVER).toBeObservable(cold('-'));
     expect(NEVER).toBeObservable(cold('-----'));
   });
-
-  it('emits no items and terminates with an error', () => {
-    expect(EMPTY).toBeObservable(cold('|'));
-  });
 });

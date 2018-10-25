@@ -3,7 +3,6 @@ import { from, of } from 'rxjs';
 import { cold } from 'jasmine-marbles';
 
 describe(' With Values ', () => {
-
   it('should work with value', () => {
     const result = from(['orange']);
     const expected = cold('(x|)', { x: 'orange' });
@@ -16,13 +15,6 @@ describe(' With Values ', () => {
     const expected = cold('(abc|)', { a: 1, b: 2, c: 3 });
 
     expect(result).toBeObservable(expected);
-  });
-  
-  it('should create cold observable single', () => {
-    const provided1 = of('a', 'b');
-    const expected = cold('(ab|)');
-
-    expect(provided1).toBeObservable(expected);
   });
 
 });
