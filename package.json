@@ -16,7 +16,7 @@
     "build:prd": "ng build --prod",
     "deploy:gh": "gh-pages -d dist",
     "publish": "run-s build:prd deploy:gh",
-    "rnd" :"ts-node src/rnd.ts"
+    "rnd" :"ts-node src/hot-cold/hot.ts"
   },
   "private": true,
   "dependencies": {
