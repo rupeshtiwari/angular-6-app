@@ -4,14 +4,18 @@ import { NEVER, EMPTY } from 'rxjs';
 describe('Marble Syntax', () => {
   describe('EMPTY', () => {
     it('emits no items but terminates normally', () => {
-      expect(EMPTY).toBeObservable(cold('|'));
+      const expected = cold('|');
+      expect(EMPTY).toBeObservable(expected);
     });
   });
 
   describe('NEVER', () => {
     it('emits no items and does not terminate', () => {
-      expect(NEVER).toBeObservable(cold('-'));
-      expect(NEVER).toBeObservable(cold('-----'));
+      const expected = cold('-');
+      expect(NEVER).toBeObservable(expected);
+
+      const expected1  = cold('------');
+      expect(NEVER).toBeObservable(expected1);
     });
   });
 });
